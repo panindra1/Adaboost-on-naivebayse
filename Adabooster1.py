@@ -144,6 +144,8 @@ def computeClassifier(range_of_attr, dataset, currentRound):
     class_a = attr_dict_a.get("+1")
     class_b = attr_dict_b.get("-1")
 
+    #print(class_a, class_b)
+
     attr_dict_a.pop("+1")
     attr_dict_b.pop("-1")
 
@@ -169,13 +171,13 @@ def calculateError(weight_of_tuple, error_list):
     return sum
 
 def adaBooster(dataset):
-    random_sample = int(len(test_data) * 0.8)
+    random_sample = int(len(dataset) * 0.8)
     weight_of_tuples = []
     random_numbers = []
     k = 4
     currentRound = 0
 
-    max_train_attributes = getMaxLengthOfAttributes(test_data)
+    max_train_attributes = getMaxLengthOfAttributes(training_data)
     max_test_attributes = getMaxLengthOfAttributes(test_data)
 
     max_attr = max_test_attributes if (max_test_attributes > max_train_attributes) else max_train_attributes
@@ -240,7 +242,7 @@ def adaBooster(dataset):
     prob_class_b_training_model = training_models.get(index)[2]
     p_attr_with_class_b_dict = training_models.get(index)[3]
 
-    classifiers = find_TP_FN_FP_TN(prob_class_a_training_model, p_attr_with_class_a_dict, prob_class_b_training_model, p_attr_with_class_b_dict, training_data, True)
+    classifiers = find_TP_FN_FP_TN(prob_class_a_training_model, p_attr_with_class_a_dict, prob_class_b_training_model, p_attr_with_class_b_dict, dataset, True)
 
 def main():
     adaBooster(training_data);
